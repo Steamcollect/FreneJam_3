@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DungeonGenerator : MonoBehaviour
@@ -27,9 +28,17 @@ public class DungeonGenerator : MonoBehaviour
     [Header("Output")]
     [SerializeField] RSE_OnDungeonCreated rseOnDungeonCreated;
 
+    [Header("PropsRef")]
+    [SerializeField] RSE_OnDoorEnter rseOnDoorEnter;
+
     private void Start()
     {
-        RoomData startingRoom = new RoomData(Vector2Int.zero, new Vector2Int(Random.Range(minMaxRoomSize.x, minMaxRoomSize.y), Random.Range(minMaxRoomSize.x, minMaxRoomSize.y)));
+        RoomData startingRoom = 
+            new RoomData(
+                Vector2Int.zero, 
+                new Vector2Int(Random.Range(minMaxRoomSize.x, minMaxRoomSize.y), 
+                Random.Range(minMaxRoomSize.x, minMaxRoomSize.y)));
+        rooms.Add(Vector2Int.zero, startingRoom);
         roomsToCheck.Add(startingRoom);
 
         CheckRooms();
@@ -53,7 +62,11 @@ public class DungeonGenerator : MonoBehaviour
         nextRoomsToCheck.Clear();
 
         if (roomsToCheck.Count > 0) CheckRooms();
-        else rseOnDungeonCreated.Call(rooms);
+        else
+        {
+            AddTriggerables();
+            rseOnDungeonCreated.Call(rooms);
+        }
     }
 
     void TryCreateRoom(RoomData creator, Vector2Int direction)
@@ -65,7 +78,7 @@ public class DungeonGenerator : MonoBehaviour
             nextRoomsToCheck.Add(CreateRoom(creator, creator.position + direction));
             currentRoomAmount++;
         }
-        else if(Random.value < .5f)
+        else if(!creator.roomConnected.Any(x => x.position == creator.position + direction) && Random.value < .4f)
         {
             creator.roomConnected.Add(rooms[creator.position + direction]);
             rooms[creator.position + direction].roomConnected.Add(creator);
@@ -80,5 +93,33 @@ public class DungeonGenerator : MonoBehaviour
         rooms.Add(position, newRoom);
 
         return newRoom;
+    }
+
+    void AddTriggerables()
+    {
+        foreach (var room in rooms.Values)
+        {
+            print(room.roomConnected.Count);
+            foreach (var roomConnected in room.roomConnected)
+            {
+                Door door = new Door();
+                door.charType = 'D';
+                door.rseOnDoorEnter = rseOnDoorEnter;
+                Vector2Int doorPos = room.position;
+
+                if (roomConnected.position == room.position + Vector2Int.up) // up
+                    doorPos = new Vector2Int(Random.Range(1, room.size.x - 1), room.size.y);
+                if (roomConnected.position == room.position + Vector2Int.down) // down
+                    doorPos = new Vector2Int(Random.Range(1, room.size.x - 1), 0);
+
+                if (roomConnected.position == room.position + Vector2Int.left) // left
+                    doorPos = new Vector2Int(0, Random.Range(1, room.size.y - 1));
+                if (roomConnected.position == room.position + Vector2Int.right) // right
+                    doorPos = new Vector2Int(room.size.x, Random.Range(1, room.size.y - 1));
+
+                door.position = doorPos;
+                room.triggerables.Add(doorPos, door);
+            }
+        }
     }
 }

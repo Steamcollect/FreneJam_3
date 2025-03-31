@@ -47,6 +47,7 @@ MonoBehaviour:
   maxRoomAmount: 30
   minMaxRoomSize: {x: 3, y: 6}
   rseOnDungeonCreated: {fileID: 11400000, guid: e01717a20e6780f4ea73eb40f732fd90, type: 2}
+  rseOnDoorEnter: {fileID: 11400000, guid: 80238c8e07d41e044864c6f44c8cd13f, type: 2}
 --- !u!1 &3623455358351280512
 GameObject:
   m_ObjectHideFlags: 0

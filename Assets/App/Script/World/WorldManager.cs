@@ -123,8 +123,12 @@ public class WorldManager : MonoBehaviour
         {
             for (int x = 0; x < rooms[playerRoomPos].size.x; x++)
             {
+                Vector2Int pos = new Vector2Int(x, y);
+
                 if (playerPos.x == x && playerPos.y == y)
-                    sb.Append($"<color=white>[P]</color>");
+                    sb.Append($"<color=cyan>[P]</color>");
+                else if (rooms[playerRoomPos].triggerables.ContainsKey(pos))
+                    sb.Append($"<color=white>[{rooms[playerRoomPos].triggerables[pos].charType}]</color>");
                 else
                     sb.Append("[0]");
             }

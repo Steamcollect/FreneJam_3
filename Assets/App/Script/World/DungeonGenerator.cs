@@ -120,28 +120,29 @@ public class DungeonGenerator : MonoBehaviour
                 door.charType = 'D';
                 Vector2Int doorPos = Vector2Int.zero;
 
-                if (roomConnected.position == room.position + Vector2Int.up)
-                {
-                    door.positionType = DoorPositionType.Up;
-                    doorPos = new Vector2Int(Random.Range(1, room.size.x - 1), room.size.y - 1);
-                }
-                    
-                if (roomConnected.position == room.position + Vector2Int.down)
-                {
-                    door.positionType = DoorPositionType.Down;
-                    doorPos = new Vector2Int(Random.Range(1, room.size.x - 1), 0);
-                }
+if (roomConnected.position == room.position + Vector2Int.up)
+{
+    door.positionType = DoorPositionType.Up;
+    doorPos = new Vector2Int(Random.Range(1, room.size.x - 1), room.size.y); // +1 à Y pour sortir
+}
 
-                if (roomConnected.position == room.position + Vector2Int.left)
-                {
-                    door.positionType= DoorPositionType.Left;
-                    doorPos = new Vector2Int(0, Random.Range(1, room.size.y - 1));
-                }
-                if (roomConnected.position == room.position + Vector2Int.right)
-                {
-                    door.positionType = DoorPositionType.Right;
-                    doorPos = new Vector2Int(room.size.x - 1, Random.Range(1, room.size.y - 1));
-                }
+if (roomConnected.position == room.position + Vector2Int.down)
+{
+    door.positionType = DoorPositionType.Down;
+    doorPos = new Vector2Int(Random.Range(1, room.size.x - 1), -1); // -1 à Y pour sortir
+}
+
+if (roomConnected.position == room.position + Vector2Int.left)
+{
+    door.positionType = DoorPositionType.Left;
+    doorPos = new Vector2Int(-1, Random.Range(1, room.size.y - 1)); // -1 à X pour sortir
+}
+
+if (roomConnected.position == room.position + Vector2Int.right)
+{
+    door.positionType = DoorPositionType.Right;
+    doorPos = new Vector2Int(room.size.x, Random.Range(1, room.size.y - 1)); // +1 à X pour sortir
+}
 
                 door.position = doorPos;
                 door.roomConnected = roomConnected.position;

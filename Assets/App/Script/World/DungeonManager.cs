@@ -58,32 +58,44 @@ public class DungeonManager : MonoBehaviour
 
     void DrawRoom()
     {
-        CustomConsoleWindow.ClearLogs();
-
         StringBuilder sb = new StringBuilder();
 
         sb.AppendLine();
-        for (int y = rooms[playerRoomPos].size.y - 1; y >= 0; y--)
+
+        RoomData room = rooms[playerRoomPos];
+
+        // Étendre la grille de -1 à size+1 pour inclure les portes
+        for (int y = room.size.y; y >= -1; y--)
         {
-            for (int x = 0; x < rooms[playerRoomPos].size.x; x++)
+            for (int x = -1; x <= room.size.x; x++)
             {
                 Vector2Int pos = new Vector2Int(x, y);
 
-                if (rsoPlayerPos.Value.x == x && rsoPlayerPos.Value.y == y)
-                    sb.Append($"<color=cyan>[P]</color>");
-                else if (rooms[playerRoomPos].triggerables.ContainsKey(pos))
-                    sb.Append($"<color=white>[{rooms[playerRoomPos].triggerables[pos].charType}]</color>");
+                if (rsoPlayerPos.Value == pos)
+                {
+                    sb.Append("<color=cyan>[P]</color>");
+                }
+                else if (room.triggerables.ContainsKey(pos))
+                {
+                    char type = room.triggerables[pos].charType;
+                    string color = (type == 'D') ? "yellow" : "white";
+                    sb.Append($"<color={color}>[{type}]</color>");
+                }
+                else if (x < 0 || x >= room.size.x || y < 0 || y >= room.size.y)
+                {
+                    // Extérieur de la salle, affiche un mur vide ou espace
+                    sb.Append("   ");
+                }
                 else
                 {
+                    // Grille normale
                     if (rsoRythmeIsEven.Value)
                     {
-                        if ((x + y) % 2 != 0) sb.Append("<color=red>[X]</color>");
-                        else sb.Append("[0]");
+                        sb.Append((x + y) % 2 != 0 ? "<color=red>[X]</color>" : "[0]");
                     }
                     else
                     {
-                        if((x + y) % 2 == 0) sb.Append("<color=red>[X]</color>");
-                        else sb.Append("[0]");
+                        sb.Append((x + y) % 2 == 0 ? "<color=red>[X]</color>" : "[0]");
                     }
                 }
             }
@@ -169,10 +181,17 @@ public class DungeonManager : MonoBehaviour
 
     bool TryMove(Vector2Int position)
     {
-        if (position.x < rooms[playerRoomPos].size.x && position.x >= 0 && position.y < rooms[playerRoomPos].size.y && position.y >= 0)
+        // Si dans la salle, OK
+        if (position.x >= 0 && position.x < rooms[playerRoomPos].size.x &&
+            position.y >= 0 && position.y < rooms[playerRoomPos].size.y)
             return true;
-        else
-            return false;
+
+        // Si c'est une porte (même extérieure), OK
+        if (rooms[playerRoomPos].doors.ContainsKey(position))
+            return true;
+
+        // Sinon, bloqué
+        return false;
     }
     void OnPlayerMove(Vector2Int playerPos)
     {

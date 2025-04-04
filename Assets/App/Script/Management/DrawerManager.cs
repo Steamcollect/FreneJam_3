@@ -29,6 +29,7 @@ public class DrawerManager : MonoBehaviour
 
     void DrawScene()
     {
+        CustomConsoleWindow.ClearLogs();
         rseDrawPlayerRoom.Call();
         rseDrawDungeon.Call();
         rseDrawHealth.Call();

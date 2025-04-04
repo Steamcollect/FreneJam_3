@@ -4,30 +4,20 @@ using UnityEngine;
 public class PlayerMotor : MonoBehaviour
 {
     //[Header("Settings")]
-    Vector2Int currentCoordonate;
-
-    //[Header("References")]
+    [Header("References")]
 
     //[Space(10)]
     // RSO
+    [SerializeField] RSO_PlayerPos rsoPlayerPos;
     // RSF
     // RSP
 
-    //[Header("Input")]
+    [Header("Input")]
     [SerializeField] RSE_SetPlayerPos rseSetPlayerPos;
 
     [Header("Output")]
     [SerializeField] RSF_PlayerTryMovement rsfPlayerTryMovement;
     [SerializeField] RSE_OnPlayerMove rseOnPlayerMove;
-
-    private void OnEnable()
-    {
-        rseSetPlayerPos.Action += (Vector2Int pos)=> currentCoordonate = pos;
-    }
-    private void OnDisable()
-    {
-        rseSetPlayerPos.Action -= (Vector2Int pos)=> currentCoordonate = pos;
-    }
 
     private void Update()
     {
@@ -39,10 +29,10 @@ public class PlayerMotor : MonoBehaviour
 
     void Move(Vector2Int input)
     {
-        Vector2Int desirePos = currentCoordonate + input;
+        Vector2Int desirePos = rsoPlayerPos.Value + input;
         if(rsfPlayerTryMovement.Call(desirePos))
         {
-            currentCoordonate = desirePos;
+            rsoPlayerPos.Value = desirePos;
             rseOnPlayerMove.Call(desirePos);
         }
     }

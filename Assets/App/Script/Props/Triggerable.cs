@@ -5,10 +5,8 @@ public abstract class Triggerable
     public Vector2Int position;
     public char charType;
 
-    public abstract void OnTriggerEnter();
-}
+    public virtual void OnTriggerEnter()
+    {
 
-public enum TriggerableType
-{
-    Door,
+    }
 }

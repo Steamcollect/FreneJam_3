@@ -6,7 +6,7 @@ public class CustomConsoleWindow : EditorWindow
 {
     private static List<string> logMessages = new List<string>();
     private Vector2 scrollPosition;
-    private static int fontSize = 14;
+    private static int fontSize = 21;
 
     [MenuItem("Tools/Custom Console")]
     public static void ShowWindow()
@@ -53,10 +53,6 @@ public class CustomConsoleWindow : EditorWindow
         {
             ClearLogs();
         }
-
-        GUILayout.Label("Font Size:", GUILayout.Width(70));
-        fontSize = EditorGUILayout.IntSlider(fontSize, 10, 24);
-        GUILayout.EndHorizontal();
 
         GUILayout.Space(5);
 

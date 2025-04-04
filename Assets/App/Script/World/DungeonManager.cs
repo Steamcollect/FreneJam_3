@@ -78,7 +78,7 @@ public class DungeonManager : MonoBehaviour
                 else if (room.triggerables.ContainsKey(pos))
                 {
                     char type = room.triggerables[pos].charType;
-                    string color = (type == 'D') ? "yellow" : "white";
+                    string color = (type == 'K') ? "yellow" : "white";
                     sb.Append($"<color={color}>[{type}]</color>");
                 }
                 else if (x < 0 || x >= room.size.x || y < 0 || y >= room.size.y)

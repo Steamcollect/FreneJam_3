@@ -4,6 +4,7 @@ using UnityEngine;
 public class RythmeManager : MonoBehaviour
 {
     [Header("Settings")]
+    [SerializeField] float margeDelay;
     [SerializeField] float[] delays;
     int currentDelayIndex;
     bool isEven;
@@ -19,6 +20,7 @@ public class RythmeManager : MonoBehaviour
     //[Header("Input")]
     [Header("Output")]
     [SerializeField] RSE_DrawConsole rseDrawConsole;
+    [SerializeField] RSE_SetCanTakeDamage rseSetCanTakeDamage;
 
     private void Start()
     {
@@ -27,7 +29,10 @@ public class RythmeManager : MonoBehaviour
 
     IEnumerator Delay()
     {
+        StartCoroutine(Utils.Delay(delays[currentDelayIndex] - margeDelay, () => { rseSetCanTakeDamage.Call(false); }));
         yield return new WaitForSeconds(delays[currentDelayIndex]);
+        StartCoroutine(Utils.Delay(margeDelay, () => { rseSetCanTakeDamage.Call(true); }));
+
         currentDelayIndex = (currentDelayIndex + 1) % delays.Length;
         isEven = !isEven;
 

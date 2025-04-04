@@ -29,6 +29,9 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] RSE_DrawPlayerRoom rseDrawPlayerRoom;
     [SerializeField] RSE_DrawDungeon rseDrawDungeon;
 
+    [Space(5)]
+    [SerializeField] RSF_IsPlayerOnDamageable rsfIsPlayerOnDamageable;
+
     [Header("Output")]
     [SerializeField] RSE_DrawConsole rseDrawConsole;
 
@@ -40,12 +43,16 @@ public class DungeonManager : MonoBehaviour
 
         rseDrawPlayerRoom.Action += DrawRoom;
         rseDrawDungeon.Action += DrawDungeon;
+
+        rsfIsPlayerOnDamageable.Action += IsPlayerOnDamageable;
     }
     private void OnDisable()
     {
         rseOnDungeonCreated.Action -= OnDungeonCreated;
         rsfPlayerTryMovement.Action -= TryMove;
         rseOnPlayerMove.Action -= OnPlayerMove;
+
+        rsfIsPlayerOnDamageable.Action -= IsPlayerOnDamageable;
     }
 
     void OnDungeonCreated(Dictionary<Vector2Int, RoomData> rooms)
@@ -208,5 +215,19 @@ public class DungeonManager : MonoBehaviour
         }
 
         rseDrawConsole.Call();
+    }
+
+    bool IsPlayerOnDamageable()
+    {
+        if (rsoRythmeIsEven.Value)
+        {
+            if ((rsoPlayerPos.Value.x + rsoPlayerPos.Value.y) % 2 != 0) return true;
+            else return false;
+        }
+        else
+        {
+            if ((rsoPlayerPos.Value.x + rsoPlayerPos.Value.y) % 2 == 0) return true;
+            else return false;
+        }
     }
 }

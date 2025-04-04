@@ -127,10 +127,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bbc26bc566ab3749b7a1f56ddb392a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  margeDelay: 0.1
   delays:
   - 1
   rsoRythmeIsEven: {fileID: 11400000, guid: 61a27fa013684104db521ecc382eef87, type: 2}
   rseDrawConsole: {fileID: 11400000, guid: e981efdfc33182543af7b45def0a07c9, type: 2}
+  rseSetCanTakeDamage: {fileID: 11400000, guid: 23094a83874b4e4409faf422fd8812b9, type: 2}
 --- !u!1 &5351656777622577936
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +196,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   rseDrawHealth: {fileID: 11400000, guid: 92099a5c97aced443a710f3463a277cb, type: 2}
+  rseSetCanTakeDamage: {fileID: 11400000, guid: 23094a83874b4e4409faf422fd8812b9, type: 2}
+  rseTakeDamage: {fileID: 11400000, guid: f22afe8a217d1a64187ff993b785c0e8, type: 2}
+  rsfIsPlayerOnDamageable: {fileID: 11400000, guid: fb71356033359774f83cd8b36198d82e, type: 2}
 --- !u!1 &6137872377730895774
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +250,7 @@ MonoBehaviour:
   rseOnDungeonCreated: {fileID: 11400000, guid: e01717a20e6780f4ea73eb40f732fd90, type: 2}
   rseDrawPlayerRoom: {fileID: 11400000, guid: b4e4ab2ed175aba4a9a23b057448f929, type: 2}
   rseDrawDungeon: {fileID: 11400000, guid: 35c808d12b782d04eac9a71e0e42008b, type: 2}
+  rsfIsPlayerOnDamageable: {fileID: 11400000, guid: fb71356033359774f83cd8b36198d82e, type: 2}
   rseDrawConsole: {fileID: 11400000, guid: e981efdfc33182543af7b45def0a07c9, type: 2}
 --- !u!1 &7150408339326184750
 GameObject:

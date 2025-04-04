@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] int maxHealth;
     int currentHealh;
 
+    bool canTakeDamage;
+
     //[Header("References")]
 
     //[Space(10)]
@@ -16,16 +18,23 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Input")]
     [SerializeField] RSE_DrawHealth rseDrawHealth;
+    [SerializeField] RSE_SetCanTakeDamage rseSetCanTakeDamage;
+    [SerializeField] RSE_TakeDamage rseTakeDamage;
 
-    //[Header("Output")]
+    [Header("Output")]
+    [SerializeField] RSF_IsPlayerOnDamageable rsfIsPlayerOnDamageable;
 
     private void OnEnable()
     {
         rseDrawHealth.Action += DrawHealth;
+        rseSetCanTakeDamage.Action += SetCanTakeDamage;
+        rseTakeDamage.Action += TakeDamage;
     }
     private void OnDisable()
     {
         rseDrawHealth.Action -= DrawHealth;
+        rseSetCanTakeDamage.Action -= SetCanTakeDamage;
+        rseTakeDamage.Action -= TakeDamage;
     }
 
     private void Start()
@@ -33,8 +42,22 @@ public class PlayerHealth : MonoBehaviour
         currentHealh = maxHealth;
     }
 
+    void TakeDamage()
+    {
+        currentHealh--;
+    }
+
     void DrawHealth()
     {
         CustomConsoleWindow.ReceiveLog($"Health: {currentHealh}/{maxHealth}");
+    }
+    void SetCanTakeDamage( bool canTakeDamage)
+    {
+        this.canTakeDamage = canTakeDamage;
+
+        if(canTakeDamage && rsfIsPlayerOnDamageable.Call())
+        {
+            TakeDamage();
+        }
     }
 }

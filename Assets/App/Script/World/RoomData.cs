@@ -11,6 +11,7 @@ public class RoomData
     public Vector2Int size;
 
     public Dictionary<Vector2Int, Door> doors = new();
+    public Dictionary<Vector2Int, Key> keys = new();
     public Dictionary<Vector2Int, Triggerable> triggerables = new();
 
     public RoomData(Vector2Int position, Vector2Int size)

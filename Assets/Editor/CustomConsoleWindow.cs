@@ -17,7 +17,7 @@ public class CustomConsoleWindow : EditorWindow
     public static void ReceiveLog(string message)
     {
         logMessages.Add(message);
-        if (logMessages.Count > 500)
+        if (logMessages.Count > 10)
             logMessages.RemoveAt(0);
 
         var window = GetWindow<CustomConsoleWindow>();
@@ -47,13 +47,7 @@ public class CustomConsoleWindow : EditorWindow
         GUILayout.BeginHorizontal();
         GUILayout.Space(20);
         GUILayout.BeginVertical();
-
-        GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Clear", GUILayout.Width(80)))
-        {
-            ClearLogs();
-        }
-
+                
         GUILayout.Space(5);
 
         scrollPosition = GUILayout.BeginScrollView(scrollPosition);

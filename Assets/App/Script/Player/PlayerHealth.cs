@@ -44,12 +44,13 @@ public class PlayerHealth : MonoBehaviour
 
     void TakeDamage()
     {
+        if (!canTakeDamage) return;
         currentHealh--;
     }
 
     void DrawHealth()
     {
-        CustomConsoleWindow.ReceiveLog($"Health: {currentHealh}/{maxHealth}");
+        CustomConsoleWindow.ReceiveLog($"<color=white>Health: {currentHealh}/{maxHealth}</color>");
     }
     void SetCanTakeDamage( bool canTakeDamage)
     {

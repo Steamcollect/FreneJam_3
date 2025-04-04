@@ -1,4 +1,3 @@
-using PlasticGui.WorkspaceWindow.Locks;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,6 +14,9 @@ public class DungeonGenerator : MonoBehaviour
     List<RoomData> roomsToCheck = new();
     List<RoomData> nextRoomsToCheck = new();
 
+    [Space(5)]
+    [SerializeField] Vector2Int minMaxKeyCount;
+
     //[System.Serializable]
 
     Dictionary<Vector2Int, RoomData> rooms = new();
@@ -29,6 +31,7 @@ public class DungeonGenerator : MonoBehaviour
     //[Header("Input")]
     [Header("Output")]
     [SerializeField] RSE_OnDungeonCreated rseOnDungeonCreated;
+    [SerializeField] RSE_SetKeyAmountRequire rseSetKeyRequire;
 
     private void Start()
     {
@@ -120,29 +123,29 @@ public class DungeonGenerator : MonoBehaviour
                 door.charType = 'D';
                 Vector2Int doorPos = Vector2Int.zero;
 
-if (roomConnected.position == room.position + Vector2Int.up)
-{
-    door.positionType = DoorPositionType.Up;
-    doorPos = new Vector2Int(Random.Range(1, room.size.x - 1), room.size.y); // +1 à Y pour sortir
-}
+                if (roomConnected.position == room.position + Vector2Int.up)
+                {
+                    door.positionType = DoorPositionType.Up;
+                    doorPos = new Vector2Int(Random.Range(1, room.size.x - 1), room.size.y); // +1 à Y pour sortir
+                }
 
-if (roomConnected.position == room.position + Vector2Int.down)
-{
-    door.positionType = DoorPositionType.Down;
-    doorPos = new Vector2Int(Random.Range(1, room.size.x - 1), -1); // -1 à Y pour sortir
-}
+                if (roomConnected.position == room.position + Vector2Int.down)
+                {
+                    door.positionType = DoorPositionType.Down;
+                    doorPos = new Vector2Int(Random.Range(1, room.size.x - 1), -1); // -1 à Y pour sortir
+                }
 
-if (roomConnected.position == room.position + Vector2Int.left)
-{
-    door.positionType = DoorPositionType.Left;
-    doorPos = new Vector2Int(-1, Random.Range(1, room.size.y - 1)); // -1 à X pour sortir
-}
+                if (roomConnected.position == room.position + Vector2Int.left)
+                {
+                    door.positionType = DoorPositionType.Left;
+                    doorPos = new Vector2Int(-1, Random.Range(1, room.size.y - 1)); // -1 à X pour sortir
+                }
 
-if (roomConnected.position == room.position + Vector2Int.right)
-{
-    door.positionType = DoorPositionType.Right;
-    doorPos = new Vector2Int(room.size.x, Random.Range(1, room.size.y - 1)); // +1 à X pour sortir
-}
+                if (roomConnected.position == room.position + Vector2Int.right)
+                {
+                    door.positionType = DoorPositionType.Right;
+                    doorPos = new Vector2Int(room.size.x, Random.Range(1, room.size.y - 1)); // +1 à X pour sortir
+                }
 
                 door.position = doorPos;
                 door.roomConnected = roomConnected.position;
@@ -153,7 +156,7 @@ if (roomConnected.position == room.position + Vector2Int.right)
         }
 
         // Set door connections
-        foreach(RoomData room in rooms.Values)
+        foreach (RoomData room in rooms.Values)
         {
             foreach (Door door in room.doors.Values)
             {
@@ -163,13 +166,13 @@ if (roomConnected.position == room.position + Vector2Int.right)
                     case DoorPositionType.Up:
                         doorConnectedPosType = DoorPositionType.Down;
                         break;
-                        case DoorPositionType.Down:
+                    case DoorPositionType.Down:
                         doorConnectedPosType = DoorPositionType.Up;
                         break;
-                        case DoorPositionType.Left:
+                    case DoorPositionType.Left:
                         doorConnectedPosType = DoorPositionType.Right;
                         break;
-                        case DoorPositionType.Right:
+                    case DoorPositionType.Right:
                         doorConnectedPosType = DoorPositionType.Left;
                         break;
                 }
@@ -181,11 +184,43 @@ if (roomConnected.position == room.position + Vector2Int.right)
                 {
                     foreach (var door in room.doors.Values)
                     {
-                        if(door.positionType == positionType) return door;
+                        if (door.positionType == positionType) return door;
                     }
                     return null;
                 }
             }
+        }
+
+        // Ajouter des clés dans des salles aléatoires
+        int keyCount = Random.Range(minMaxKeyCount.x, minMaxKeyCount.y + 1);
+        List<RoomData> availableRooms = rooms.Values.ToList();
+        rseSetKeyRequire.Call(keyCount);
+
+        for (int i = 0; i < keyCount && availableRooms.Count > 0; i++)
+        {
+            // Choisir une salle aléatoire
+            int index = Random.Range(0, availableRooms.Count);
+            RoomData room = availableRooms[index];
+            availableRooms.RemoveAt(index); // éviter les doublons (optionnel)
+
+            // Choisir une position aléatoire dans la salle (intérieure uniquement)
+            Vector2Int pos = new Vector2Int(Random.Range(0, room.size.x), Random.Range(0, room.size.y));
+
+            // Si la position est déjà occupée, on cherche une autre
+            int safety = 0;
+            while ((room.triggerables.ContainsKey(pos) || room.doors.ContainsKey(pos)) && safety < 20)
+            {
+                pos = new Vector2Int(Random.Range(0, room.size.x), Random.Range(0, room.size.y));
+                safety++;
+            }
+
+            // Créer une clé
+            Key key = new();
+            key.charType = 'K';
+            key.position = pos;
+
+            room.triggerables[pos] = key;
+            room.keys.Add(pos, key);
         }
     }
 }

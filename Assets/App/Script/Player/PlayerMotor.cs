@@ -18,6 +18,8 @@ public class PlayerMotor : MonoBehaviour
     [Header("Output")]
     [SerializeField] RSF_PlayerTryMovement rsfPlayerTryMovement;
     [SerializeField] RSE_OnPlayerMove rseOnPlayerMove;
+    [SerializeField] RSF_IsPlayerOnDamageable rsfIsPlayerOnDamageable;
+    [SerializeField] RSE_TakeDamage rseTakeDamage;
 
     private void Update()
     {
@@ -34,6 +36,8 @@ public class PlayerMotor : MonoBehaviour
         {
             rsoPlayerPos.Value = desirePos;
             rseOnPlayerMove.Call(desirePos);
+
+            if (rsfIsPlayerOnDamageable.Call()) rseTakeDamage.Call();
         }
     }
 }

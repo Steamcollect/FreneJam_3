@@ -17,6 +17,7 @@ public class DrawerManager : MonoBehaviour
     [SerializeField] RSE_DrawPlayerRoom rseDrawPlayerRoom;
     [SerializeField] RSE_DrawDungeon rseDrawDungeon;
     [SerializeField] RSE_DrawHealth rseDrawHealth;
+    [SerializeField] RSE_DrawKeyCount rseDrawKeyCount;
 
     private void OnEnable()
     {
@@ -33,5 +34,6 @@ public class DrawerManager : MonoBehaviour
         rseDrawPlayerRoom.Call();
         rseDrawDungeon.Call();
         rseDrawHealth.Call();
+        rseDrawKeyCount.Call();
     }
 }

@@ -16,6 +16,7 @@ public class DungeonManager : MonoBehaviour
     // RSO
     [SerializeField] RSO_PlayerPos rsoPlayerPos;
     [SerializeField] RSO_RythmeIsEven rsoRythmeIsEven;
+    [SerializeField] RSO_KeyCount rsoKeyCount;
     // RSF
     // RSP
 
@@ -71,7 +72,7 @@ public class DungeonManager : MonoBehaviour
 
         RoomData room = rooms[playerRoomPos];
 
-        // Étendre la grille de -1 à size+1 pour inclure les portes
+        // Étendre la grille de -1 à size +1 pour inclure les portes
         for (int y = room.size.y; y >= -1; y--)
         {
             for (int x = -1; x <= room.size.x; x++)
@@ -85,17 +86,16 @@ public class DungeonManager : MonoBehaviour
                 else if (room.triggerables.ContainsKey(pos))
                 {
                     char type = room.triggerables[pos].charType;
-                    string color = (type == 'K') ? "yellow" : "white";
+                    string color = (type == 'K' && room.keys[pos].canBePick) ? "yellow" : "white";
+
                     sb.Append($"<color={color}>[{type}]</color>");
                 }
                 else if (x < 0 || x >= room.size.x || y < 0 || y >= room.size.y)
                 {
-                    // Extérieur de la salle, affiche un mur vide ou espace
                     sb.Append("   ");
                 }
                 else
                 {
-                    // Grille normale
                     if (rsoRythmeIsEven.Value)
                     {
                         sb.Append((x + y) % 2 != 0 ? "<color=red>[X]</color>" : "[0]");
@@ -213,12 +213,23 @@ public class DungeonManager : MonoBehaviour
 
             rooms[playerRoomPos].isVisited = true;
         }
+        else if (rooms[playerRoomPos].keys.ContainsKey(playerPos))
+        {
+            if (rooms[playerRoomPos].keys[playerPos].canBePick)
+            {
+                rsoKeyCount.Value++;
+                rooms[playerRoomPos].keys[playerPos].canBePick = false;
+            }
+        }
 
         rseDrawConsole.Call();
     }
 
     bool IsPlayerOnDamageable()
     {
+        if (playerRoomPos == Vector2Int.zero && rsoPlayerPos.Value == playerStartingPos) return false;
+        if (rooms[playerRoomPos].triggerables.ContainsKey(rsoPlayerPos.Value)) return false;
+
         if (rsoRythmeIsEven.Value)
         {
             if ((rsoPlayerPos.Value.x + rsoPlayerPos.Value.y) % 2 != 0) return true;

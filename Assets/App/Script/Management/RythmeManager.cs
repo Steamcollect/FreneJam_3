@@ -1,17 +1,26 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class RythmeManager : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] float margeDelay;
-    [SerializeField] float[] delays;
+    [SerializeField] _Delay[] delays;
     int currentDelayIndex;
     bool isEven;
 
-    [Header("References")]
+    [System.Serializable]
+    public class _Delay
+    {
+        public float delay;
+        public AudioClip clip;
+    }
 
-    //[Space(10)]
+    [Header("References")]
+    [SerializeField] AudioSource audioSource;
+
+    [Space(10)]
     // RSO
     [SerializeField] RSO_RythmeIsEven rsoRythmeIsEven;
     [SerializeField] RSO_GameState rsoGameState;
@@ -48,9 +57,12 @@ public class RythmeManager : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(Utils.Delay(delays[currentDelayIndex] - margeDelay, () => { rseSetCanTakeDamage.Call(false); }));
-        yield return new WaitForSeconds(delays[currentDelayIndex]);
+        StartCoroutine(Utils.Delay(delays[currentDelayIndex].delay - margeDelay, () => { rseSetCanTakeDamage.Call(false); }));
+        yield return new WaitForSeconds(delays[currentDelayIndex].delay);
         StartCoroutine(Utils.Delay(margeDelay, () => { rseSetCanTakeDamage.Call(true); }));
+
+        audioSource.clip = delays[currentDelayIndex].clip;
+        audioSource.Play();
 
         currentDelayIndex = (currentDelayIndex + 1) % delays.Length;
         isEven = !isEven;

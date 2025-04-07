@@ -9,8 +9,9 @@ public class DrawerManager : MonoBehaviour
     [SerializeField, TextArea] string loseTxt;
 
     [Header("References")]
+    [SerializeField] AudioClip nextPanelClip;
 
-    //[Space(10)]
+    [Space(10)]
     // RSO
     [SerializeField] RSO_GameState rsoGameState;
     // RSF

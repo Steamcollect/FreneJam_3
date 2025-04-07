@@ -50,7 +50,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!canTakeDamage) return;
         currentHealh--;
-        if(currentHealh <= 0)
+        if(currentHealh <= 0 && rsoGameState.Value != GameState.Win)
         {
             rsoGameState.Value = GameState.Lose;
         }

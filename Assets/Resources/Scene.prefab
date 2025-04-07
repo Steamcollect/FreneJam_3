@@ -59,6 +59,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4272748256387311864}
+  - component: {fileID: 6366334666130798379}
   m_Layer: 0
   m_Name: Scene
   m_TagString: Untagged
@@ -86,6 +87,14 @@ Transform:
   - {fileID: 8584358031809558344}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &6366334666130798379
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3623455358351280512}
+  m_Enabled: 1
 --- !u!1 &4735162554688277683
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4452744642862109645}
   - component: {fileID: 4633964174711992316}
+  - component: {fileID: 592894379481914051}
   m_Layer: 0
   m_Name: RythmeManager
   m_TagString: Untagged
@@ -132,12 +142,136 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   margeDelay: 0.15
   delays:
-  - 1
+  - delay: 1
+    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
+  - delay: 1
+    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
+  - delay: 0.5
+    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
+  - delay: 0.5
+    clip: {fileID: 8300000, guid: fe7a76adcca1da243b0ef15d2bb701bc, type: 3}
+  - delay: 1
+    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
+  - delay: 1
+    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
+  - delay: 0.5
+    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
+  - delay: 0.5
+    clip: {fileID: 8300000, guid: fe7a76adcca1da243b0ef15d2bb701bc, type: 3}
+  - delay: 0.5
+    clip: {fileID: 8300000, guid: c81520ad3c7ec8c4d96a7de797ca8a23, type: 3}
+  - delay: 0.5
+    clip: {fileID: 8300000, guid: e815c62f095bd9b4c88d2fbe04f97c40, type: 3}
+  - delay: 0.5
+    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
+  - delay: 0.25
+    clip: {fileID: 8300000, guid: fe7a76adcca1da243b0ef15d2bb701bc, type: 3}
+  - delay: 0.25
+    clip: {fileID: 8300000, guid: e815c62f095bd9b4c88d2fbe04f97c40, type: 3}
+  - delay: 0.25
+    clip: {fileID: 8300000, guid: fe7a76adcca1da243b0ef15d2bb701bc, type: 3}
+  audioSource: {fileID: 592894379481914051}
   rsoRythmeIsEven: {fileID: 11400000, guid: 61a27fa013684104db521ecc382eef87, type: 2}
   rsoGameState: {fileID: 11400000, guid: ae3fed731b7dc494eb010d63052dccdf, type: 2}
   rseStartGame: {fileID: 11400000, guid: 4df1037c4f0e1204c862cb1c0d0da5e7, type: 2}
   rseDrawConsole: {fileID: 11400000, guid: e981efdfc33182543af7b45def0a07c9, type: 2}
   rseSetCanTakeDamage: {fileID: 11400000, guid: 23094a83874b4e4409faf422fd8812b9, type: 2}
+--- !u!82 &592894379481914051
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4735162554688277683}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5351656777622577936
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rsoKeyCount: {fileID: 11400000, guid: a9a83af588f7921429711b8f0b6dbfd0, type: 2}
+  rsoGameState: {fileID: 11400000, guid: ae3fed731b7dc494eb010d63052dccdf, type: 2}
   rseSetKeyCount: {fileID: 11400000, guid: 0532b205b79628146b2f946bd4ebcc29, type: 2}
   rseDrawKeyCount: {fileID: 11400000, guid: 7eb3e3f44f65c42409152e062a184f96, type: 2}
   rseStartGame: {fileID: 11400000, guid: 4df1037c4f0e1204c862cb1c0d0da5e7, type: 2}
@@ -349,6 +484,7 @@ MonoBehaviour:
 
     To
     play an other game, press "Space"'
+  nextPanelClip: {fileID: 0}
   rsoGameState: {fileID: 11400000, guid: ae3fed731b7dc494eb010d63052dccdf, type: 2}
   rseDrawConsole: {fileID: 11400000, guid: e981efdfc33182543af7b45def0a07c9, type: 2}
   rseDrawPlayerRoom: {fileID: 11400000, guid: b4e4ab2ed175aba4a9a23b057448f929, type: 2}

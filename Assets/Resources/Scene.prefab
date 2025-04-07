@@ -143,33 +143,7 @@ MonoBehaviour:
   margeDelay: 0.15
   delays:
   - delay: 1
-    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
-  - delay: 1
-    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
-  - delay: 0.5
-    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
-  - delay: 0.5
-    clip: {fileID: 8300000, guid: fe7a76adcca1da243b0ef15d2bb701bc, type: 3}
-  - delay: 1
-    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
-  - delay: 1
-    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
-  - delay: 0.5
-    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
-  - delay: 0.5
-    clip: {fileID: 8300000, guid: fe7a76adcca1da243b0ef15d2bb701bc, type: 3}
-  - delay: 0.5
-    clip: {fileID: 8300000, guid: c81520ad3c7ec8c4d96a7de797ca8a23, type: 3}
-  - delay: 0.5
-    clip: {fileID: 8300000, guid: e815c62f095bd9b4c88d2fbe04f97c40, type: 3}
-  - delay: 0.5
-    clip: {fileID: 8300000, guid: 5b690b761c3921d419f29e365b6df50f, type: 3}
-  - delay: 0.25
-    clip: {fileID: 8300000, guid: fe7a76adcca1da243b0ef15d2bb701bc, type: 3}
-  - delay: 0.25
-    clip: {fileID: 8300000, guid: e815c62f095bd9b4c88d2fbe04f97c40, type: 3}
-  - delay: 0.25
-    clip: {fileID: 8300000, guid: fe7a76adcca1da243b0ef15d2bb701bc, type: 3}
+    clip: {fileID: 8300000, guid: e73e9fa561037804a99b39b766f6b53d, type: 3}
   audioSource: {fileID: 592894379481914051}
   rsoRythmeIsEven: {fileID: 11400000, guid: 61a27fa013684104db521ecc382eef87, type: 2}
   rsoGameState: {fileID: 11400000, guid: ae3fed731b7dc494eb010d63052dccdf, type: 2}

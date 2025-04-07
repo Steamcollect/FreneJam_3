@@ -47,6 +47,7 @@ MonoBehaviour:
   maxRoomAmount: 15
   minMaxRoomSize: {x: 3, y: 6}
   minMaxKeyCount: {x: 8, y: 8}
+  rseStartGame: {fileID: 11400000, guid: 4df1037c4f0e1204c862cb1c0d0da5e7, type: 2}
   rseOnDungeonCreated: {fileID: 11400000, guid: e01717a20e6780f4ea73eb40f732fd90, type: 2}
   rseSetKeyRequire: {fileID: 11400000, guid: 0532b205b79628146b2f946bd4ebcc29, type: 2}
 --- !u!1 &3623455358351280512
@@ -133,6 +134,8 @@ MonoBehaviour:
   delays:
   - 1
   rsoRythmeIsEven: {fileID: 11400000, guid: 61a27fa013684104db521ecc382eef87, type: 2}
+  rsoGameState: {fileID: 11400000, guid: ae3fed731b7dc494eb010d63052dccdf, type: 2}
+  rseStartGame: {fileID: 11400000, guid: 4df1037c4f0e1204c862cb1c0d0da5e7, type: 2}
   rseDrawConsole: {fileID: 11400000, guid: e981efdfc33182543af7b45def0a07c9, type: 2}
   rseSetCanTakeDamage: {fileID: 11400000, guid: 23094a83874b4e4409faf422fd8812b9, type: 2}
 --- !u!1 &5351656777622577936
@@ -182,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rsoPlayerPos: {fileID: 11400000, guid: 4a3a84fac580d2c4484b78b91c51e979, type: 2}
+  rsoGameState: {fileID: 11400000, guid: ae3fed731b7dc494eb010d63052dccdf, type: 2}
   rseSetPlayerPos: {fileID: 11400000, guid: 7ba635b3d409a954380c035384a67aa7, type: 2}
   rsfPlayerTryMovement: {fileID: 11400000, guid: 596f0f7330dd1224a91d84c2309eecd1, type: 2}
   rseOnPlayerMove: {fileID: 11400000, guid: 90572768484749148b4d50065ce4274d, type: 2}
@@ -200,9 +204,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
+  rsoGameState: {fileID: 11400000, guid: ae3fed731b7dc494eb010d63052dccdf, type: 2}
   rseDrawHealth: {fileID: 11400000, guid: 92099a5c97aced443a710f3463a277cb, type: 2}
   rseSetCanTakeDamage: {fileID: 11400000, guid: 23094a83874b4e4409faf422fd8812b9, type: 2}
   rseTakeDamage: {fileID: 11400000, guid: f22afe8a217d1a64187ff993b785c0e8, type: 2}
+  rseStartGame: {fileID: 11400000, guid: 4df1037c4f0e1204c862cb1c0d0da5e7, type: 2}
   rsfIsPlayerOnDamageable: {fileID: 11400000, guid: fb71356033359774f83cd8b36198d82e, type: 2}
 --- !u!114 &8162961798992072912
 MonoBehaviour:
@@ -219,6 +225,7 @@ MonoBehaviour:
   rsoKeyCount: {fileID: 11400000, guid: a9a83af588f7921429711b8f0b6dbfd0, type: 2}
   rseSetKeyCount: {fileID: 11400000, guid: 0532b205b79628146b2f946bd4ebcc29, type: 2}
   rseDrawKeyCount: {fileID: 11400000, guid: 7eb3e3f44f65c42409152e062a184f96, type: 2}
+  rseStartGame: {fileID: 11400000, guid: 4df1037c4f0e1204c862cb1c0d0da5e7, type: 2}
 --- !u!1 &6137872377730895774
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,8 +324,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f901815d61a8f44864e43f90a8e79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  introTxt: 'Welcome to Crypt of the NecroDancer 1bit
+
+
+    Find every key in the
+    dungeon while moving in the rythm of the music...
+
+    Good luck!
+
+
+    Press
+    Space to play'
+  winTxt: 'Congrate!
+
+    You found every keys in the dungeon...
+
+
+    To play an
+    other game, press "Space"'
+  loseTxt: 'To bad!
+
+    You take to many damage... Why didnt you follow the rythm?!?
+
+
+    To
+    play an other game, press "Space"'
+  rsoGameState: {fileID: 11400000, guid: ae3fed731b7dc494eb010d63052dccdf, type: 2}
   rseDrawConsole: {fileID: 11400000, guid: e981efdfc33182543af7b45def0a07c9, type: 2}
   rseDrawPlayerRoom: {fileID: 11400000, guid: b4e4ab2ed175aba4a9a23b057448f929, type: 2}
   rseDrawDungeon: {fileID: 11400000, guid: 35c808d12b782d04eac9a71e0e42008b, type: 2}
   rseDrawHealth: {fileID: 11400000, guid: 92099a5c97aced443a710f3463a277cb, type: 2}
   rseDrawKeyCount: {fileID: 11400000, guid: 7eb3e3f44f65c42409152e062a184f96, type: 2}
+  rseStartGame: {fileID: 11400000, guid: 4df1037c4f0e1204c862cb1c0d0da5e7, type: 2}

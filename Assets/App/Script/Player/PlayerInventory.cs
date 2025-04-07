@@ -16,6 +16,7 @@ public class PlayerInventory : MonoBehaviour
     [Header("Input")]
     [SerializeField] RSE_SetKeyAmountRequire rseSetKeyCount;
     [SerializeField] RSE_DrawKeyCount rseDrawKeyCount;
+    [SerializeField] RSE_StartGame rseStartGame;
 
     //[Header("Output")]
 
@@ -23,14 +24,16 @@ public class PlayerInventory : MonoBehaviour
     {
         rseDrawKeyCount.Action += DrawKeyCount;
         rseSetKeyCount.Action += SetMaxKey;
+        rseStartGame.Action += OnStart;
     }
     private void OnDisable()
     {
         rseDrawKeyCount.Action -= DrawKeyCount;
         rseSetKeyCount.Action -= SetMaxKey;
+        rseStartGame.Action -= OnStart;
     }
 
-    private void Start()
+    private void OnStart()
     {
         rsoKeyCount.Value = 0;
     }

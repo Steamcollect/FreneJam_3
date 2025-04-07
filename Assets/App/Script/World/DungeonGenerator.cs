@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DungeonGenerator : MonoBehaviour
 {
@@ -28,13 +29,30 @@ public class DungeonGenerator : MonoBehaviour
     // RSF
     // RSP
 
-    //[Header("Input")]
+    [Header("Input")]
+    [SerializeField] RSE_StartGame rseStartGame;
+
     [Header("Output")]
     [SerializeField] RSE_OnDungeonCreated rseOnDungeonCreated;
     [SerializeField] RSE_SetKeyAmountRequire rseSetKeyRequire;
 
-    private void Start()
+    private void OnEnable()
     {
+        rseStartGame.Action += OnStart;
+    }
+    private void OnDisable()
+    {
+        rseStartGame.Action -= OnStart;
+    }
+
+    private void OnStart()
+    {
+        rooms = new();
+        currentRoomAmount = 0;
+        currentLoop = 0;
+        roomsToCheck.Clear();
+        nextRoomsToCheck.Clear();
+
         RoomData startingRoom = 
             new RoomData(
                 Vector2Int.zero, 

@@ -14,21 +14,40 @@ public class RythmeManager : MonoBehaviour
     //[Space(10)]
     // RSO
     [SerializeField] RSO_RythmeIsEven rsoRythmeIsEven;
+    [SerializeField] RSO_GameState rsoGameState;
     // RSF
     // RSP
 
-    //[Header("Input")]
+    [Header("Input")]
+    [SerializeField] RSE_StartGame rseStartGame;
+
     [Header("Output")]
     [SerializeField] RSE_DrawConsole rseDrawConsole;
     [SerializeField] RSE_SetCanTakeDamage rseSetCanTakeDamage;
 
-    private void Start()
+    private void OnEnable()
     {
-        StartCoroutine(Delay());
+        rseStartGame.Action += OnStart;
+    }
+    private void OnDisable()
+    {
+        rseStartGame.Action -= OnStart;
     }
 
+    private void OnStart()
+    {
+        if(delayCoroutine != null) StopCoroutine(delayCoroutine);
+        delayCoroutine = StartCoroutine(Delay());
+    }
+
+    Coroutine delayCoroutine;
     IEnumerator Delay()
     {
+        while(rsoGameState.Value != GameState.InGame)
+        {
+            yield return null;
+        }
+
         StartCoroutine(Utils.Delay(delays[currentDelayIndex] - margeDelay, () => { rseSetCanTakeDamage.Call(false); }));
         yield return new WaitForSeconds(delays[currentDelayIndex]);
         StartCoroutine(Utils.Delay(margeDelay, () => { rseSetCanTakeDamage.Call(true); }));
@@ -40,6 +59,6 @@ public class RythmeManager : MonoBehaviour
 
         rseDrawConsole.Call();
 
-        StartCoroutine(Delay());
+        delayCoroutine = StartCoroutine(Delay());
     }
 }

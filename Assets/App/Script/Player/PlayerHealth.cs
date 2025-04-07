@@ -9,10 +9,11 @@ public class PlayerHealth : MonoBehaviour
 
     bool canTakeDamage;
 
-    //[Header("References")]
+    [Header("References")]
 
     //[Space(10)]
     // RSO
+    [SerializeField] RSO_GameState rsoGameState;
     // RSF
     // RSP
 
@@ -20,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] RSE_DrawHealth rseDrawHealth;
     [SerializeField] RSE_SetCanTakeDamage rseSetCanTakeDamage;
     [SerializeField] RSE_TakeDamage rseTakeDamage;
+    [SerializeField] RSE_StartGame rseStartGame;
 
     [Header("Output")]
     [SerializeField] RSF_IsPlayerOnDamageable rsfIsPlayerOnDamageable;
@@ -29,15 +31,17 @@ public class PlayerHealth : MonoBehaviour
         rseDrawHealth.Action += DrawHealth;
         rseSetCanTakeDamage.Action += SetCanTakeDamage;
         rseTakeDamage.Action += TakeDamage;
+        rseStartGame.Action += OnStart;
     }
     private void OnDisable()
     {
         rseDrawHealth.Action -= DrawHealth;
         rseSetCanTakeDamage.Action -= SetCanTakeDamage;
         rseTakeDamage.Action -= TakeDamage;
+        rseStartGame.Action -= OnStart;
     }
 
-    private void Start()
+    private void OnStart()
     {
         currentHealh = maxHealth;
     }
@@ -46,6 +50,10 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!canTakeDamage) return;
         currentHealh--;
+        if(currentHealh <= 0)
+        {
+            rsoGameState.Value = GameState.Lose;
+        }
     }
 
     void DrawHealth()

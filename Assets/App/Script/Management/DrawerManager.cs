@@ -1,12 +1,18 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class DrawerManager : MonoBehaviour
 {
-    //[Header("Settings")]
+    [Header("Settings")]
+    [SerializeField, TextArea] string introTxt;
+    [SerializeField, TextArea] string winTxt;
+    [SerializeField, TextArea] string loseTxt;
 
-    //[Header("References")]
+    [Header("References")]
 
     //[Space(10)]
     // RSO
+    [SerializeField] RSO_GameState rsoGameState;
     // RSF
     // RSP
 
@@ -18,6 +24,7 @@ public class DrawerManager : MonoBehaviour
     [SerializeField] RSE_DrawDungeon rseDrawDungeon;
     [SerializeField] RSE_DrawHealth rseDrawHealth;
     [SerializeField] RSE_DrawKeyCount rseDrawKeyCount;
+    [SerializeField] RSE_StartGame rseStartGame;
 
     private void OnEnable()
     {
@@ -28,12 +35,58 @@ public class DrawerManager : MonoBehaviour
         rseDrawConsole.Action -= DrawScene;
     }
 
+    private void Start()
+    {
+        rsoGameState.Value = GameState.Intro;
+        CustomConsoleWindow.ClearLogs();
+        rseStartGame.Call();
+
+        DrawScene();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            switch (rsoGameState.Value)
+            {
+                case GameState.Intro:
+                    rsoGameState.Value = GameState.InGame;
+                    DrawScene();
+                    break;
+                case GameState.Win:
+                    Start();
+                    break;
+                case GameState.Lose:
+                    Start();
+                    break;
+            }
+        }
+    }
+
     void DrawScene()
     {
-        CustomConsoleWindow.ClearLogs();
-        rseDrawPlayerRoom.Call();
-        rseDrawDungeon.Call();
-        rseDrawHealth.Call();
-        rseDrawKeyCount.Call();
+        switch (rsoGameState.Value)
+        {
+            case GameState.Intro:
+                CustomConsoleWindow.ClearLogs();
+                CustomConsoleWindow.ReceiveLog(introTxt);
+                break;
+            case GameState.InGame:
+                CustomConsoleWindow.ClearLogs();
+                rseDrawPlayerRoom.Call();
+                rseDrawDungeon.Call();
+                rseDrawHealth.Call();
+                rseDrawKeyCount.Call();
+                break;
+            case GameState.Win:
+                CustomConsoleWindow.ClearLogs();
+                CustomConsoleWindow.ReceiveLog(winTxt);
+                break;
+            case GameState.Lose:
+                CustomConsoleWindow.ClearLogs();
+                CustomConsoleWindow.ReceiveLog(loseTxt);
+                break;
+        }
     }
 }

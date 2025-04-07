@@ -1,4 +1,3 @@
-using System.Text;
 using UnityEngine;
 
 public class PlayerMotor : MonoBehaviour
@@ -9,6 +8,7 @@ public class PlayerMotor : MonoBehaviour
     //[Space(10)]
     // RSO
     [SerializeField] RSO_PlayerPos rsoPlayerPos;
+    [SerializeField] RSO_GameState rsoGameState;
     // RSF
     // RSP
 
@@ -23,10 +23,13 @@ public class PlayerMotor : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.UpArrow)) Move(Vector2Int.up);
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) Move(Vector2Int.down);
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.LeftArrow)) Move(Vector2Int.left);
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) Move(Vector2Int.right);
+        if(rsoGameState.Value == GameState.InGame)
+        {
+            if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.UpArrow)) Move(Vector2Int.up);
+            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) Move(Vector2Int.down);
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.LeftArrow)) Move(Vector2Int.left);
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) Move(Vector2Int.right);
+        }
     }
 
     void Move(Vector2Int input)

@@ -5,3 +5,8 @@ Deplacement avec les flèches
 Espace pour passer un panel
 
 Bonne chance !
+
+Themes choisis :
+	-No Graphics
+	-Procedural Hierarchy
+	-One scene
